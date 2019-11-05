@@ -1,0 +1,67 @@
+<!-- -->
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+<div class="container-fluid">
+<div class="mt-5 text-center">
+<div class="alert alert-primary alert-dismissible" role="alert">
+<p style="margin-bottom:1em;"><h3><b>Nhận dạng chữ số viết tay</b></h3></p>
+<hr>
+<h4>
+<ol>
+<li style="margin-bottom:1em;" align="left">Sau khi tải lên hình ảnh tệp jpg viết tay bằng số (0-9), nhấn nút dự đoán màu đỏ</li>
+<li style="margin-bottom:1em;" align="left">Tạo định dạng hình ảnh tập tin định dạng <font color=red>「JPG」</font>, màu nền Đen đen và văn bản màu trắng
+  </li>
+<li style="margin-bottom:1em;" align="left">Phân tích các đặc điểm của hình ảnh được tải lên và tự động xác định xem có phải là số từ 0 đến 9 hay không.</li>
+
+<li style="margin-bottom:1em;" align="left">Nếu kích thước hình ảnh là 28 * 28 pixel, xác suất phán đoán sẽ cao hơn. Vì tập training có kích thước 28x28</li>
+<li style="margin-bottom:1em;" align="left">Nhiều tập tin hình ảnh có thể được chọn và tải lên cùng một lúc。</li>
+</ol>
+</h4>
+</div>
+</div>
+<hr>
+<form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+<div style="display:inline-flex">
+<input type="file" name="files[]" multiple>
+</div>
+<input type="submit" class="btn btn-lg btn-danger" value="Dự đoán">
+{% csrf_token %}
+</form>
+
+{% if message %}
+<div class="alert alert-danger" role="alert">
+<h4><font color="red">{{message}}<br></font> </h4>
+</div>
+{% endif %}
+<hr>
+<h4><p style="margin-bottom:1em;">ví dụ dữ liệu hình ảnh số</p></h4>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+      <div class="thumbnail">
+        <img src="{% static 'img/sample1.jpg' %}" width="45px" height="45px">
+      <div class="caption">Số 8(8)</div>
+    </div>
+  </div>
+  <div class="col-xs-3">
+      <div class="thumbnail">
+        <img src="{% static 'img/sample2.jpg' %}" width="45px" height="45px">
+      <div class="caption">Số 6(6)</div>
+    </div>
+  </div>
+  <div class="col-xs-3">
+      <div class="thumbnail">
+        <img src="{% static 'img/sample3.jpg' %}" width="45px" height="45px">
+      <div class="caption">Số 3(3)</div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</div>
+{% endblock content %}
